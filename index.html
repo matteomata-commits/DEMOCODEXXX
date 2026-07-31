@@ -205,7 +205,7 @@
   var combinazioni = [
     { luna:1, mercurio:4, venere:4, marte:4, sole:1,
       immagine: "assets/carta-segreta.jpg" },
-    { luna:0, mercurio:1, venere:7, marte:6, sole:3,
+    { luna:0, mercurio:1, marte:6, sole:3,
       poesia: `Ci si improvvisa scrittori
 dalla penna di loto
 e gli occhi insaziabili
@@ -260,11 +260,11 @@ Mathias PdS` }
 
   document.getElementById('btn-decifra').addEventListener('click', function() {
     var match = combinazioni.find(function(c) {
-      return c.luna === slotState.luna &&
-             c.mercurio === slotState.mercurio &&
-             c.venere === slotState.venere &&
-             c.marte === slotState.marte &&
-             c.sole === slotState.sole;
+      return (c.luna === undefined || c.luna === slotState.luna) &&
+             (c.mercurio === undefined || c.mercurio === slotState.mercurio) &&
+             (c.venere === undefined || c.venere === slotState.venere) &&
+             (c.marte === undefined || c.marte === slotState.marte) &&
+             (c.sole === undefined || c.sole === slotState.sole);
     });
     poemBox.classList.remove('error');
     poemBox.innerHTML = '';
