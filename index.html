@@ -38,25 +38,25 @@
 
   .panel-left {
     display: grid;
-    grid-template-columns: repeat(3, 42px);
-    grid-template-rows: repeat(3, 42px);
-    gap: 8px;
+    grid-template-columns: repeat(3, 58px);
+    grid-template-rows: repeat(3, 58px);
+    gap: 10px;
     flex: 0 0 auto;
   }
   .dot {
-    width: 42px;
-    height: 42px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     cursor: pointer;
-    border: 2px dashed rgba(255,255,255,0.55);
+    background-size: cover;
+    background-position: center;
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .dot:hover {
     transform: scale(1.08);
   }
   .dot.selected {
-    box-shadow: 0 0 10px rgba(255,255,255,0.9);
-    border-color: #fff;
+    box-shadow: 0 0 12px rgba(255,255,255,0.9);
   }
 
   .stage {
@@ -74,8 +74,8 @@
 
   .slot {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 46px;
+    height: 46px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     cursor: pointer;
@@ -87,6 +87,8 @@
     height: 100%;
     border-radius: 50%;
     background: transparent;
+    background-size: cover;
+    background-position: center;
     transition: background 0.15s;
   }
 
@@ -172,9 +174,9 @@
 
 <script>
   var colors = [
-    "#e63946", "#f1a208", "#2a9d8f",
-    "#264653", "#8338ec", "#ff006e",
-    "#06d6a0", "#ffd400", "#c1121f"
+    "assets/rune1.png","assets/rune2.png","assets/rune3.png",
+    "assets/rune4.png","assets/rune5.png","assets/rune6.png",
+    "assets/rune7.png","assets/rune8.png","assets/rune9.png"
   ];
 
   var combinazioni = [
@@ -280,7 +282,7 @@ i dimenticati e i vinti
 con le scintillanti
 armature del sole` },
     { luna:1, mercurio:4, venere:4, marte:4, sole:1,
-      immagine: "assets/carta-segreta.jpg" },
+      immagine: "assets/cartasegreta.jpg" },
     { luna:0, mercurio:1, venere:7, marte:6, sole:3,
       poesia: `Ci si improvvisa scrittori
 dalla penna di loto
@@ -305,7 +307,7 @@ Mathias PdS` }
   colors.forEach(function(c, i) {
     var d = document.createElement('div');
     d.className = 'dot';
-    d.style.background = c;
+    d.style.backgroundImage = "url(" + c + ")";
     d.dataset.index = i;
     d.addEventListener('click', function() {
       if (selectedIndex === i) {
@@ -326,7 +328,7 @@ Mathias PdS` }
       if (selectedIndex === null) return;
       var key = s.id.replace('slot-', '');
       slotState[key] = selectedIndex;
-      s.querySelector('.fill').style.background = colors[selectedIndex];
+      s.querySelector('.fill').style.backgroundImage = "url(" + colors[selectedIndex] + ")";
     });
   });
 
@@ -360,7 +362,7 @@ Mathias PdS` }
 
   document.getElementById('btn-reset').addEventListener('click', function() {
     Object.keys(slotState).forEach(function(k) { slotState[k] = null; });
-    document.querySelectorAll('.slot .fill').forEach(function(f) { f.style.background = 'transparent'; });
+    document.querySelectorAll('.slot .fill').forEach(function(f) { f.style.backgroundImage = "none"; });
     dots.forEach(function(x) { x.classList.remove('selected'); });
     selectedIndex = null;
     poemBox.classList.remove('visible', 'error');
