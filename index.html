@@ -89,7 +89,10 @@
     background: transparent;
     background-size: cover;
     background-position: center;
-    transition: background 0.15s;
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+  .slot .fill.filled {
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.45);
   }
 
   .strip {
@@ -282,7 +285,7 @@ i dimenticati e i vinti
 con le scintillanti
 armature del sole` },
     { luna:1, mercurio:4, venere:4, marte:4, sole:1,
-      immagine: "assets/cartasegreta.jpg" },
+      immagine: "assets/carta-segreta.jpg" },
     { luna:0, mercurio:1, venere:7, marte:6, sole:3,
       poesia: `Ci si improvvisa scrittori
 dalla penna di loto
@@ -328,7 +331,9 @@ Mathias PdS` }
       if (selectedIndex === null) return;
       var key = s.id.replace('slot-', '');
       slotState[key] = selectedIndex;
-      s.querySelector('.fill').style.backgroundImage = "url(" + colors[selectedIndex] + ")";
+      var fill = s.querySelector('.fill');
+      fill.style.backgroundImage = "url(" + colors[selectedIndex] + ")";
+      fill.classList.add('filled');
     });
   });
 
@@ -362,7 +367,10 @@ Mathias PdS` }
 
   document.getElementById('btn-reset').addEventListener('click', function() {
     Object.keys(slotState).forEach(function(k) { slotState[k] = null; });
-    document.querySelectorAll('.slot .fill').forEach(function(f) { f.style.backgroundImage = "none"; });
+    document.querySelectorAll('.slot .fill').forEach(function(f) {
+      f.style.backgroundImage = "none";
+      f.classList.remove('filled');
+    });
     dots.forEach(function(x) { x.classList.remove('selected'); });
     selectedIndex = null;
     poemBox.classList.remove('visible', 'error');
